@@ -173,7 +173,11 @@ function matrix_more_links( $menu_links ){
 		return $menu_links;
 	}
 
-	$new = array( 'submit-jobs' => 'Add New Job', 'job-dashboard' => 'Job Dashboard' );
+	$new = array( 
+        'submit-jobs' => 'Add New Job', 
+        'job-dashboard' => 'Job Dashboard',
+        'venue-portal' => 'Portal / Campaign Manager'
+    );
     $logout_index = array_search("customer-logout",array_keys($menu_links));
 	$menu_links = array_slice( $menu_links, 0, $logout_index, true ) 
 	+ $new 
