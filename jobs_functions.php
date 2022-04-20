@@ -175,7 +175,7 @@ function matrix_more_links( $menu_links ){
 
 	$new = array( 
         'submit-jobs' => 'Add New Job', 
-        'job-dashboard' => 'Job Dashboard',
+        'job-dashboard' => 'My Jobs',
         'venue-portal' => 'Portal / Campaign Manager'
     );
     $logout_index = array_search("customer-logout",array_keys($menu_links));
