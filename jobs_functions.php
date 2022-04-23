@@ -241,7 +241,7 @@ function custom_submit_job_form_fields( $fields ) {
     $fields['job']['job_location']['placeholder'] = 'e.g. "Dublin"';
     $fields['job']['application']['placeholder'] = 'Enter an email address or website URL were applications will be sent to';
     $fields['company']['company_logo']['label'] = 'Logo (.jpg, .png or .gif)';
-    $fields['company']['company_logo']['multiple'] = true;
+    // $fields['company']['company_logo']['multiple'] = true;
     // And return the modified fields
     return $fields;
 }
