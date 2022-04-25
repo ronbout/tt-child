@@ -74,3 +74,20 @@ function wpjms_redirect_login_url() {
 add_filter( 'submit_job_form_logout_url', function() {
   return wp_logout_url(get_bloginfo('url'));
 });
+
+/**************************************************************
+ * Make sure Job Packages do not show up on Offers page
+ **************************************************************/
+function custom_pre_get_posts_query( $q ) {
+  $tax_query = (array) $q->get( 'tax_query' );
+
+  $tax_query[] = array(
+         'taxonomy' => 'product_cat',
+         'field' => 'slug',
+         'terms' => array( 'job-package' ), 
+         'operator' => 'NOT IN'
+  );
+
+  $q->set( 'tax_query', $tax_query );
+}
+add_action( 'woocommerce_product_query', 'custom_pre_get_posts_query' );
