@@ -27,4 +27,5 @@ add_action( 'wp_enqueue_scripts', 'child_enqueue_styles', 15 );
 /**
  * Include the functions related to the jobs board
  */
-include get_stylesheet_directory().'/jobs_functions.php';
+// include get_stylesheet_directory().'/jobs_functions.php';
+include get_stylesheet_directory().'/rlb_jobs_functions.php';
