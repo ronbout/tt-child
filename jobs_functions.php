@@ -59,7 +59,8 @@ function admin_add_salary_field( $fields ) {
 		'label'       => __( 'Salary (€) *', 'job_manager' ),
 		'type'        => 'text',
 		'placeholder' => 'e.g. 20000',
-		'description' => ''
+		'description' => '',
+        'show_in_rest' => true,
 	);
 	return $fields;
 }
