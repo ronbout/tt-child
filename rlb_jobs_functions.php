@@ -62,3 +62,15 @@ function custom_submit_job_form_fields( $fields ) {
     $fields['company']['company_logo']['label'] = 'Logo (.jpg, .png or .gif)';
     return $fields;
 }
+
+/**************************************************************
+ * Make sure that the login/logout is done w/in TheTaste site
+ **************************************************************/
+add_filter( 'submit_job_form_login_url', 'wpjms_redirect_login_url' );
+function wpjms_redirect_login_url() {
+  return get_site_url(null, '/my-taste-account');
+}
+
+add_filter( 'submit_job_form_logout_url', function() {
+  return wp_logout_url(get_bloginfo('url'));
+});
