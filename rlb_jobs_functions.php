@@ -8,11 +8,40 @@
  * 
  * 
  */
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+
+/**********************************************
+ * Test code for hooks/filters goes here
+ **********************************************/
+
+// function test_get_job_listings($query_args, $args) {
+
+
+//   $file1 = "C:/Users/ronbo/Documents/jim-stuff/tmp/write_test_query_" . time() . ".txt";
+
+//   $msg1 = serialize($query_args);
+  
+//   file_put_contents($file1, $msg1);
+
+//   $file2 = "C:/Users/ronbo/Documents/jim-stuff/tmp/write_test_" . time() . ".txt";
+
+//   $msg2 = serialize($args);
+  
+//   file_put_contents($file2, $msg2);
+
+
+// }
+// add_action('before_get_job_listings', 'test_get_job_listings', 10, 2);
+
 
 /**********************************************
  * Include the code for adding custom job fields
  **********************************************/
 include get_stylesheet_directory().'/rlb_custom_job_fields.php';
+include get_stylesheet_directory().'/rlb_jobs_api.php';
 
 /****************************************************
  * Add Links to the My Taste Account menu
