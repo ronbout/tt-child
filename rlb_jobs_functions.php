@@ -48,8 +48,34 @@ include get_stylesheet_directory().'/rlb_jobs_api.php';
  ****************************************************/
 add_filter ( 'woocommerce_account_menu_items', 'matrix_more_links' );
 function matrix_more_links( $menu_links ){
-    $user_info = wp_get_current_user();
+  $user_info = wp_get_current_user();
 	$role = $user_info->roles[0];
+
+
+/*****
+ * 
+ * just a place to put unrelated test code
+ */
+/*
+  $args = array(
+    'post_type' => 'job_listing',
+    'posts_per_page' => '20',
+    'tax_query' => array(
+        array(
+            'taxonomy' => 'job_listing_type',
+            'terms'    => array( '144386', '144327'),
+        ),
+    ),
+    'meta_key' => '_company_name',
+    'meta_value' => array('Jims Bar and Grill', 'Sauron Inc.' )
+  );
+  // the query
+  $query = new WP_Query( $args );
+  echo "**Job count:   ", count($query->posts), "   ";
+  print_r($query->posts);
+  */
+
+
 
 	if ('VENUE' !== strtoupper($role) && 'ADMINISTRATOR' !== strtoupper($role)) {    
         $logout_index = array_search("subscriptions",array_keys($menu_links));
