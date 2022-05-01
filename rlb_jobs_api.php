@@ -32,7 +32,7 @@ function get_filtered_jobs($request) {
 
   $select_clause = "
     SELECT job_p.ID AS job_id, job_p.post_title AS job_title, job_p.post_date AS job_date, job_p.post_content AS job_desc,
-      job_p.post_status AS job_status,
+      job_p.post_status AS job_status, terms.name AS job_type,
       MAX(CASE WHEN job_meta.meta_key = '_application' then job_meta.meta_value ELSE NULL END) as application,
       MAX(CASE WHEN job_meta.meta_key = '_company_name' then job_meta.meta_value ELSE NULL END) as company_name,
       MAX(CASE WHEN job_meta.meta_key = '_company_tagline' then job_meta.meta_value ELSE NULL END) as company_tagline,
@@ -46,7 +46,8 @@ function get_filtered_jobs($request) {
   $from_clause = "
     FROM wp_posts job_p 
       LEFT JOIN wp_postmeta job_meta ON job_meta.post_id = job_p.ID
-      LEFT JOIN wp_term_relationships terms ON terms.object_id = job_p.ID
+      LEFT JOIN wp_term_relationships term_rel ON term_rel.object_id = job_p.ID
+      LEFT JOIN wp_terms terms ON terms.term_id = term_rel.term_taxonomy_id
   ";
 
   $where_clause = "
@@ -63,9 +64,27 @@ function get_filtered_jobs($request) {
     ";
   }
 
-  if (array_key_exists('job_types', $parameters)) {
-    $jobs_types = $parameters['job_types'];
-    $where_clause .= " AND terms.term_taxonomy_id IN ($jobs_types) ";
+  /**
+   * 
+   * Adjust for job type coming in from Brook-like form
+   * 
+   */
+
+  if (array_key_exists('jobtype', $parameters)) {
+    $job_types = array(
+      "Full Time" => 144327,
+      "Part Time" => 144386,
+      "Temporary" => 144336,
+    );
+
+    $job_type_list = '';
+    $get_job_types_array = explode(',', $parameters['jobtype']);
+    foreach($get_job_types_array as $job_type) {
+      $job_type_list .= $job_type_list ? ',' : '';
+      $job_type_list .= $job_types[$job_type];
+    }
+
+    $where_clause .= " AND term_rel.term_taxonomy_id IN ($job_type_list) ";
   }
 
   $group_clause = " GROUP BY job_p.ID ";
@@ -85,13 +104,7 @@ function get_filtered_jobs($request) {
 
   $prepared_sql = $wpdb->prepare($sql);
 
-  // return array( 
-  //   'content' =>  $sql
-  // );
-
   $jobs_array = $wpdb->get_results($prepared_sql, ARRAY_A);
-
-
 
   $data = array(
     'jobs' =>  $jobs_array,
