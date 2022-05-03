@@ -124,3 +124,41 @@ function get_filtered_jobs($request) {
   return new WP_REST_Response( $data, 200 );
 
 }
+
+/***********************************************
+ * API to return company listing with job count
+ ***********************************************/
+
+add_action( 'rest_api_init', 'create_job_companies_api');
+function create_job_companies_api () {
+  $api_array = array( 
+    'methods' => 'GET',
+    'callback' => 'get_job_companies',
+  );
+
+  register_rest_route( 'rlbjobs/v1', '/jobcompanies', $api_array );
+}
+
+function get_job_companies($request) {
+  global $wpdb;
+
+  $sql = "
+    SELECT job_meta.meta_value AS company_name, COUNT(job_p.ID) AS company_job_cnt
+    FROM {$wpdb->prefix}posts job_p 
+      LEFT JOIN {$wpdb->prefix}postmeta job_meta ON job_meta.post_id = job_p.ID AND job_meta.meta_key = '_company_name'
+    WHERE job_p.post_type = 'job_listing'
+      AND job_p.post_status IN ('publish', 'expired')
+    GROUP BY job_meta.meta_value
+    ORDER BY count(job_p.ID) DESC 
+  ";
+
+  $prepared_sql = $wpdb->prepare($sql);
+
+  $companies_array = $wpdb->get_results($prepared_sql, ARRAY_A);
+
+  $data = array(
+    'companies' =>  $companies_array,
+  );
+
+  return new WP_REST_Response( $data, 200 );
+}
