@@ -103,9 +103,16 @@ function get_filtered_jobs($request) {
   }
 
   if (array_key_exists('jobclass', $parameters)) {
-    $job_class = $parameters['jobclass'];
+
+    $job_class_list = '';
+    $get_job_class_array = explode(',', $parameters['jobclass']);
+    foreach($get_job_class_array as $job_class) {
+      $job_class_list .= $job_class_list ? ',' : '';
+      $job_class_list .= "'$job_class'";
+    }
+
     $having_clause .= $having_clause ? " AND " : " HAVING ";
-    $having_clause .= "MAX(CASE WHEN job_meta.meta_key = '_job_class' then job_meta.meta_value ELSE NULL END) = '$job_class'";
+    $having_clause .= "MAX(CASE WHEN job_meta.meta_key = '_job_class' then job_meta.meta_value ELSE NULL END) in ($job_class_list)";
   }
 
   $order_clause = "ORDER BY ";
