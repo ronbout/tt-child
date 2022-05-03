@@ -11,8 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-
-
 /****************************************************
  * Add Salary field with groupings for Search on Jobs Listing page
  ****************************************************/
@@ -141,4 +139,70 @@ function filter_by_salary_field_query_args( $query_args, $args ) {
 }
 /****************************************************
  * End of Salary Field
+ ****************************************************/
+
+ /****************************************************
+ * Add Job Class field (Hourly vs Salary)
+ ****************************************************/
+
+add_filter( 'submit_job_form_fields', 'frontend_add_job_class_field' );
+function frontend_add_job_class_field( $fields ) {
+	$fields['job']['job_class'] = array(
+		'label'       => __( 'Job Class', 'job_manager' ),
+		'type'        => 'radio',
+        'options' => [
+            'Salary' => __( 'Salary', 'wp-job-manager' ),
+            'Hourly'  => __( 'Hourly', 'wp-job-manager' ),
+        ],
+		'required'    => true,
+        'data_type'     => 'string',
+		'priority'    => 8
+	);
+	return $fields;
+
+}
+
+
+add_filter( 'job_manager_job_listing_data_fields', 'admin_add_job_class_field' );
+function admin_add_job_class_field( $fields ) {
+	$fields['_job_class'] = array(
+		'label'       => __( 'Job Class', 'job_manager' ),
+		'type'        => 'radio',
+        'data_type'     => 'string',
+        'show_in_rest'  => true,
+	);
+	return $fields;
+}
+
+add_action( 'single_job_listing_meta_end', 'display_job_class_data' );
+function display_job_class_data() {
+    global $post;
+
+    $job_class = get_post_meta( $post->ID, '_job_class', true );
+
+    if ( $job_class ) {
+        echo '<li>' . esc_html( $job_class ) . '</li>';
+    }
+}
+
+// Add Google structured data
+
+// add_filter( 'wpjm_get_job_listing_structured_data', 'add_basesalary_data');
+
+// function add_basesalary_data( $data ) {
+//     global $post;
+
+//     $data['baseSalary'] = [];
+//     $data['baseSalary']['@type'] = 'MonetaryAmount';
+//     $data['baseSalary']['currency'] = 'EUR';
+//     $data['baseSalary']['value'] = [];
+//     $data['baseSalary']['value']['@type'] = 'QuantitativeValue';
+//     $data['baseSalary']['value']['value'] = get_post_meta( $post->ID, '_job_salary', true );
+//     $data['baseSalary']['value']['unitText'] = 'YEAR';
+
+//     return $data;
+// }
+
+/****************************************************
+ * End of Job Class Field
  ****************************************************/

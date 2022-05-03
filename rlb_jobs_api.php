@@ -12,6 +12,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+
+/***********************************************
+ * API for main job filter/search 
+ ***********************************************/
 add_action( 'rest_api_init', 'create_joblisting_api');
 function create_joblisting_api () {
   $api_array = array( 
@@ -40,14 +44,15 @@ function get_filtered_jobs($request) {
       MAX(CASE WHEN job_meta.meta_key = '_company_video' then job_meta.meta_value ELSE NULL END) as company_video,
       MAX(CASE WHEN job_meta.meta_key = '_company_website' then job_meta.meta_value ELSE NULL END) as company_website,
       MAX(CASE WHEN job_meta.meta_key = '_job_salary' then job_meta.meta_value ELSE NULL END) as job_salary,
+      MAX(CASE WHEN job_meta.meta_key = '_job_class' then job_meta.meta_value ELSE NULL END) as job_class,
       MAX(CASE WHEN job_meta.meta_key = '_job_location' then job_meta.meta_value ELSE NULL END) as job_location
   ";
 
   $from_clause = "
-    FROM wp_posts job_p 
-      LEFT JOIN wp_postmeta job_meta ON job_meta.post_id = job_p.ID
-      LEFT JOIN wp_term_relationships term_rel ON term_rel.object_id = job_p.ID
-      LEFT JOIN wp_terms terms ON terms.term_id = term_rel.term_taxonomy_id
+    FROM {$wpdb->prefix}posts job_p 
+      LEFT JOIN {$wpdb->prefix}postmeta job_meta ON job_meta.post_id = job_p.ID
+      LEFT JOIN {$wpdb->prefix}term_relationships term_rel ON term_rel.object_id = job_p.ID
+      LEFT JOIN {$wpdb->prefix}terms terms ON terms.term_id = term_rel.term_taxonomy_id
   ";
 
   $where_clause = "
@@ -95,6 +100,12 @@ function get_filtered_jobs($request) {
     $company = $parameters['company'];
     $having_clause .= $having_clause ? " AND " : " HAVING ";
     $having_clause .= "MAX(CASE WHEN job_meta.meta_key = '_company_name' then job_meta.meta_value ELSE NULL END) = '$company'";
+  }
+
+  if (array_key_exists('jobclass', $parameters)) {
+    $job_class = $parameters['jobclass'];
+    $having_clause .= $having_clause ? " AND " : " HAVING ";
+    $having_clause .= "MAX(CASE WHEN job_meta.meta_key = '_job_class' then job_meta.meta_value ELSE NULL END) = '$job_class'";
   }
 
   $order_clause = "ORDER BY ";
