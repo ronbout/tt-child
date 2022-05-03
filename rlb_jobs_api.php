@@ -48,6 +48,13 @@ function get_filtered_jobs($request) {
       MAX(CASE WHEN job_meta.meta_key = '_job_location' then job_meta.meta_value ELSE NULL END) as job_location
   ";
 
+  // to get the count of all qualifying jobs, must do select of select
+  $select_count_clause = "
+  SELECT count(distinct_id) AS jobs_count
+    FROM (
+      SELECT COUNT( distinct job_p.ID) AS distinct_id
+  ";
+
   $from_clause = "
     FROM {$wpdb->prefix}posts job_p 
       LEFT JOIN {$wpdb->prefix}postmeta job_meta ON job_meta.post_id = job_p.ID
@@ -126,12 +133,16 @@ function get_filtered_jobs($request) {
   $order_clause .= $keyword_flag ? "job_p.post_title LIKE '%programmer%' DESC, job_p.post_date DESC " : "job_p.post_date DESC";
 
   $sql = $select_clause . $from_clause . $where_clause . $group_clause . $having_clause . $order_clause;
+  $count_sql = $select_count_clause . $from_clause . $where_clause . $group_clause . $having_clause . $order_clause . ") jobrows ";
 
   $prepared_sql = $wpdb->prepare($sql);
+  $prepared_count_sql = $wpdb->prepare($count_sql);
 
   $jobs_array = $wpdb->get_results($prepared_sql, ARRAY_A);
+  $jobs_count = $wpdb->get_results($prepared_count_sql, ARRAY_A)[0]['jobs_count'];
 
   $data = array(
+    'jobs_count' => $jobs_count,
     'jobs' =>  $jobs_array,
   );
 
