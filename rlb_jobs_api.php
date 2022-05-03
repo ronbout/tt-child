@@ -97,9 +97,16 @@ function get_filtered_jobs($request) {
   $having_clause = "";
 
   if (array_key_exists('company', $parameters)) {
-    $company = $parameters['company'];
+
+    $company_list = '';
+    $get_company_array = explode(',', $parameters['company']);
+    foreach($get_company_array as $company) {
+      $company_list .= $company_list ? ',' : '';
+      $company_list .= "'$company'";
+    }
+
     $having_clause .= $having_clause ? " AND " : " HAVING ";
-    $having_clause .= "MAX(CASE WHEN job_meta.meta_key = '_company_name' then job_meta.meta_value ELSE NULL END) = '$company'";
+    $having_clause .= "MAX(CASE WHEN job_meta.meta_key = '_company_name' then job_meta.meta_value ELSE NULL END) in ($company_list)";
   }
 
   if (array_key_exists('jobclass', $parameters)) {
