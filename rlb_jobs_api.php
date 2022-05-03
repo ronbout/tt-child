@@ -139,6 +139,13 @@ function get_filtered_jobs($request) {
   $prepared_count_sql = $wpdb->prepare($count_sql);
 
   $jobs_array = $wpdb->get_results($prepared_sql, ARRAY_A);
+
+  if (! count($jobs_array)) {
+    $data = array(
+      'error' => 'no results'
+    );
+    return new WP_REST_Response( $data, 200 );
+  }
   $jobs_count = $wpdb->get_results($prepared_count_sql, ARRAY_A)[0]['jobs_count'];
 
   $data = array(
