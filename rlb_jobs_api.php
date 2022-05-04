@@ -45,7 +45,8 @@ function get_filtered_jobs($request) {
       MAX(CASE WHEN job_meta.meta_key = '_company_website' then job_meta.meta_value ELSE NULL END) as company_website,
       MAX(CASE WHEN job_meta.meta_key = '_job_salary' then job_meta.meta_value ELSE NULL END) as job_salary,
       MAX(CASE WHEN job_meta.meta_key = '_job_class' then job_meta.meta_value ELSE NULL END) as job_class,
-      MAX(CASE WHEN job_meta.meta_key = '_job_location' then job_meta.meta_value ELSE NULL END) as job_location
+      MAX(CASE WHEN job_meta.meta_key = '_job_location' then job_meta.meta_value ELSE NULL END) as job_location,
+      logo_p.guid AS logo_img
   ";
 
   // to get the count of all qualifying jobs, must do select of select
@@ -58,6 +59,8 @@ function get_filtered_jobs($request) {
   $from_clause = "
     FROM {$wpdb->prefix}posts job_p 
       LEFT JOIN {$wpdb->prefix}postmeta job_meta ON job_meta.post_id = job_p.ID
+      LEFT JOIN {$wpdb->prefix}postmeta logo_meta ON logo_meta.post_id = job_p.ID AND logo_meta.meta_key = '_thumbnail_id'
+      LEFT JOIN {$wpdb->prefix}posts logo_p ON logo_p.ID = logo_meta.meta_value
       LEFT JOIN {$wpdb->prefix}term_relationships term_rel ON term_rel.object_id = job_p.ID
       LEFT JOIN {$wpdb->prefix}terms terms ON terms.term_id = term_rel.term_taxonomy_id
   ";
