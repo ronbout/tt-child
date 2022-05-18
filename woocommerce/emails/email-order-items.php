@@ -93,11 +93,14 @@ foreach ( $items as $item_id => $item ) :
 		if (isset($GLOBALS['completed_email_flag'])) {
 			?>
 			<tr class="qr-container">
-				<td colspan="3">
+				<td><strong>Venues:</strong>  To redeem this item, scan the QR code and follow the directions or visit your Campaign Manager page.</td>
+				<td colspan="2">
+					<div style="text-align:center">
 				<?php
 					$oi_url = get_site_url(null, "/order-item-info?order-item-id={$item_id}");
 					echo do_shortcode( "[su_qrcode data='{$oi_url}' size='100' align='center' color='#F73F43' background='#ffffff'] ");
 				?>
+				</div>
 				</td>
 			</tr>
 			<?php
