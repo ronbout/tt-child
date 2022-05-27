@@ -13,3 +13,334 @@ Template: astra
 .themeform .form-control {
   width: 100%;
 }
+/* Styles for Order Booking */
+
+.order-booking-article {
+  display: flex;
+  justify-content: center;
+}
+
+.order-booking-article > div {
+  flex-basis: 100%;
+  text-align: center;
+}
+
+#booking-order-item-card-container h4,
+#booking-order-item-card-container h5,
+#booking-order-item-card-container h6 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+#booking-order-item-card-container .booking-card-img {
+  height: 200px;
+}
+#booking-order-item-card-container {
+  max-width: 340px;
+}
+#booking-order-item-card-container h4.text-primary {
+  color: #007bff;
+}
+#booking-order-item-card-container h4.text-danger {
+  color: #dc3545;
+}
+#booking-order-item-card-container h4 {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 28.8px;
+}
+#booking-order-item-card-container h5 {
+  color: #212529;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24px;
+}
+#booking-order-item-card-container h6.text-muted {
+  color: #6c757d;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19.2px;
+  margin-bottom: 8px;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+#booking-order-item-widget-container .ot-dtp-picker {
+  width: 260px;
+}
+
+#booking-order-item-widget-container .ot-dtp-picker {
+  font-family: "BrandonText", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  font-size: 16px;
+  line-height: 20px;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.ot-dtp-picker input[type="submit"] {
+  font-family: "BrandonText", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  font-size: 16px;
+  line-height: 20px;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#booking-order-item-widget-container h1 {
+  font-family: "BrandonText", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 20px;
+}
+#booking-order-item-widget-container .ot-button {
+  background-color: #da3743;
+  background-color: var(--ot-button-background-color);
+  border: 1px solid #da3743;
+  border: 1px solid var(--ot-button-background-color);
+  border-radius: 4px;
+  color: #ffffff;
+  color: var(--ot-button-color);
+  cursor: pointer;
+  display: block;
+  font-weight: bold;
+  padding: 14px 0 15px;
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+}
+#booking-order-item-widget-container .ot-button:focus,
+#booking-order-item-widget-container .ot-button:hover {
+  background-color: #e15b64;
+  background-color: var(--ot-button-background-color-active);
+  border: 1px solid #e15b64;
+  border: 1px solid var(--ot-button-background-color-active);
+  color: #ffffff;
+  color: var(--ot-button-color);
+}
+
+/* duplicating Boostrap 4.5 card classes to match the display
+   in the Venue system */
+
+.tsd-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  text-align: center;
+}
+
+.tsd-card > hr {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.tsd-card > .list-group {
+  border-top: inherit;
+  border-bottom: inherit;
+}
+
+.tsd-card > .list-group:first-child {
+  border-top-width: 0;
+  border-top-left-radius: calc(0.25rem - 1px);
+  border-top-right-radius: calc(0.25rem - 1px);
+}
+
+.tsd-card > .list-group:last-child {
+  border-bottom-width: 0;
+  border-bottom-right-radius: calc(0.25rem - 1px);
+  border-bottom-left-radius: calc(0.25rem - 1px);
+}
+
+.tsd-card > .tsd-card-header + .list-group,
+.tsd-card > .list-group + .tsd-card-footer {
+  border-top: 0;
+}
+
+.tsd-card-body {
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding: 1.25rem;
+}
+
+.tsd-card-title {
+  margin-bottom: 0.75rem;
+}
+
+.tsd-card-subtitle {
+  margin-top: -0.375rem;
+  margin-bottom: 0;
+}
+
+.tsd-card-text:last-child {
+  margin-bottom: 0;
+}
+
+.tsd-card-link:hover {
+  text-decoration: none;
+}
+
+.tsd-card-link + .tsd-card-link {
+  margin-left: 1.25rem;
+}
+
+.tsd-card-header {
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 0;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.tsd-card-header:first-child {
+  border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+}
+
+.tsd-card-footer {
+  padding: 0.75rem 1.25rem;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.tsd-card-footer:last-child {
+  border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px);
+}
+
+.tsd-card-header-tabs {
+  margin-right: -0.625rem;
+  margin-bottom: -0.75rem;
+  margin-left: -0.625rem;
+  border-bottom: 0;
+}
+
+.tsd-card-header-pills {
+  margin-right: -0.625rem;
+  margin-left: -0.625rem;
+}
+
+.tsd-card-img-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1.25rem;
+  border-radius: calc(0.25rem - 1px);
+}
+
+.tsd-card-img,
+.tsd-card-img-top,
+.tsd-card-img-bottom {
+  flex-shrink: 0;
+  width: 100%;
+}
+
+.tsd-card-img,
+.tsd-card-img-top {
+  border-top-left-radius: calc(0.25rem - 1px);
+  border-top-right-radius: calc(0.25rem - 1px);
+}
+
+.tsd-card-img,
+.tsd-card-img-bottom {
+  border-bottom-right-radius: calc(0.25rem - 1px);
+  border-bottom-left-radius: calc(0.25rem - 1px);
+}
+
+.tsd-card-deck .tsd-card {
+  margin-bottom: 15px;
+}
+
+@media (min-width: 576px) {
+  .tsd-card-deck {
+    display: flex;
+    flex-flow: row wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+  }
+  .tsd-card-deck .tsd-card {
+    flex: 1 0 0%;
+    margin-right: 15px;
+    margin-bottom: 0;
+    margin-left: 15px;
+  }
+}
+
+.tsd-card-group > .tsd-card {
+  margin-bottom: 15px;
+}
+
+@media (min-width: 576px) {
+  .tsd-card-group {
+    display: flex;
+    flex-flow: row wrap;
+  }
+  .tsd-card-group > .tsd-card {
+    flex: 1 0 0%;
+    margin-bottom: 0;
+  }
+  .tsd-card-group > .tsd-card + .tsd-card {
+    margin-left: 0;
+    border-left: 0;
+  }
+  .tsd-card-group > .tsd-card:not(:last-child) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .tsd-card-group > .tsd-card:not(:last-child) .tsd-card-img-top,
+  .tsd-card-group > .tsd-card:not(:last-child) .tsd-card-header {
+    border-top-right-radius: 0;
+  }
+  .tsd-card-group > .tsd-card:not(:last-child) .tsd-card-img-bottom,
+  .tsd-card-group > .tsd-card:not(:last-child) .tsd-card-footer {
+    border-bottom-right-radius: 0;
+  }
+  .tsd-card-group > .tsd-card:not(:first-child) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .tsd-card-group > .tsd-card:not(:first-child) .tsd-card-img-top,
+  .tsd-card-group > .tsd-card:not(:first-child) .tsd-card-header {
+    border-top-left-radius: 0;
+  }
+  .tsd-card-group > .tsd-card:not(:first-child) .tsd-card-img-bottom,
+  .tsd-card-group > .tsd-card:not(:first-child) .tsd-card-footer {
+    border-bottom-left-radius: 0;
+  }
+}
+
+.tsd-card-columns .tsd-card {
+  margin-bottom: 0.75rem;
+}
+
+@media (min-width: 576px) {
+  .tsd-card-columns {
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+    -webkit-column-gap: 1.25rem;
+    -moz-column-gap: 1.25rem;
+    column-gap: 1.25rem;
+    orphans: 1;
+    widows: 1;
+  }
+  .tsd-card-columns .tsd-card {
+    display: inline-block;
+    width: 100%;
+  }
+}

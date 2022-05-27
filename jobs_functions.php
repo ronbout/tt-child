@@ -1,6 +1,11 @@
 <?php
 // Custom WP Job Manager
 // Keywords
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 function register_jo_manager_tax() {
  
     $labels = array(
