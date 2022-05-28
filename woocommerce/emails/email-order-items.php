@@ -96,16 +96,6 @@ foreach ( $items as $item_id => $item ) :
 	if ( $show_purchase_note && $purchase_note ) {
 
 		if (isset($GLOBALS['completed_email_flag'])) {
-			/****
-			 * 
-			 *  if $booking, change the rows and display the button for Book Now.
-			 * 
-			 * 	otherwise, keep it in the original QR layout.
-			 * 
-			 * 	Make the Venue msg smaller, removing the strong tag and add italics
-			 * 
-			 * 
-			 */
 			?>
 				<style>
 					.ven-msg {
@@ -119,10 +109,11 @@ foreach ( $items as $item_id => $item ) :
 				?>
 				<tr class="qr-container">
 					<td style="text-align:center">
-						<a class="booking-link" href="<?php echo $booking_url ?>" target="_blank">
-							<button type="button" class="ot-button ot-dtp-picker-button en">Book Now
-							</button>
-						</a>
+						<button type="button" class="ot-button ot-dtp-picker-button en">
+							<a class="booking-link" href="<?php echo $booking_url ?>" target="_blank">
+								Book Now
+							</a>
+						</button>
 						<div title="Powered By OpenTable" class="ot-powered-by"></div>
 					</td>
 					<td colspan="2">

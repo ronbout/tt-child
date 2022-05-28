@@ -73,7 +73,14 @@ if ($booking_flg) {
 		}
 
 		a.booking-link {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
 			text-decoration: none;
+			color: #ffffff;
+			font-weight: bold;
+			width: 100%;
+			height: 100%;
 		}
 
 		.ot-button {
@@ -84,9 +91,11 @@ if ($booking_flg) {
 			display: block;
 			font-weight: bold;
 			padding: 14px 0 15px;
+			padding: 0;
 			text-align: center;
 			text-decoration: none;
 			width: 100%; 
+			height: 45px;
 			border-radius: 0 0 2px 2px;
 		}
 		.ot-button:focus, .ot-button:hover {
