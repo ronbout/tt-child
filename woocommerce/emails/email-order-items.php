@@ -26,6 +26,9 @@ foreach ( $items as $item_id => $item ) :
 	$purchase_note = '';
 	$image         = '';
 
+	$booking 			 = '';
+
+
 	if ( ! apply_filters( 'woocommerce_order_item_visible', true, $item ) ) {
 		continue;
 	}
@@ -34,6 +37,8 @@ foreach ( $items as $item_id => $item ) :
 		$sku           = $product->get_sku();
 		$purchase_note = $product->get_purchase_note();
 		$image         = $product->get_image( $image_size );
+
+		$booking			 = $product->get_meta('booking');
 	}
 
 	?>
@@ -91,19 +96,63 @@ foreach ( $items as $item_id => $item ) :
 	if ( $show_purchase_note && $purchase_note ) {
 
 		if (isset($GLOBALS['completed_email_flag'])) {
+			/****
+			 * 
+			 *  if $booking, change the rows and display the button for Book Now.
+			 * 
+			 * 	otherwise, keep it in the original QR layout.
+			 * 
+			 * 	Make the Venue msg smaller, removing the strong tag and add italics
+			 * 
+			 * 
+			 */
 			?>
-			<tr class="qr-container">
-				<td><strong>Venues:</strong>  To redeem this item, scan the QR code and follow the directions or visit your Campaign Manager page.</td>
-				<td colspan="2">
-					<div style="text-align:center">
-				<?php
-					$oi_url = get_site_url(null, "/order-item-info?order-item-id={$item_id}");
-					echo do_shortcode( "[su_qrcode data='{$oi_url}' size='100' align='center' color='#F73F43' background='#ffffff'] ");
-				?>
-				</div>
-				</td>
-			</tr>
+				<style>
+					.ven-msg {
+						font-size: 0.9em;
+						font-style: italic;
+					}
+				</style>
 			<?php
+			if ($booking) {
+				$booking_url = get_site_url(null, "/open-table-booking?order-item-id={$item_id}");
+				?>
+				<tr class="qr-container">
+					<td style="text-align:center">
+						<a class="booking-link" href="<?php echo $booking_url ?>" target="_blank">
+							<button type="button" class="ot-button ot-dtp-picker-button en">Book Now
+							</button>
+						</a>
+						<div title="Powered By OpenTable" class="ot-powered-by"></div>
+					</td>
+					<td colspan="2">
+						<div  class="ven-msg" style="text-align:center">
+					<?php
+						$oi_url = get_site_url(null, "/order-item-info?order-item-id={$item_id}");
+						echo do_shortcode( "[su_qrcode data='{$oi_url}' size='100' align='center' color='#F73F43' background='#ffffff'] ");
+					?>
+					</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="ven-msg" colspan="3">Venues:  To redeem this item, scan the QR code and follow the directions or visit your Campaign Manager page.</td>
+				</tr>
+				<?php
+			} else {
+				?>
+				<tr class="qr-container">
+					<td class="ven-msg">Venues:  To redeem this item, scan the QR code and follow the directions or visit your Campaign Manager 			page.</td>
+					<td colspan="2">
+						<div style="text-align:center">
+							<?php
+								$oi_url = get_site_url(null, "/order-item-info?order-item-id={$item_id}");
+								echo do_shortcode( "[su_qrcode data='{$oi_url}' size='100' align='center' color='#F73F43' background='#ffffff'] ");
+							?>
+						</div>
+					</td>
+				</tr>
+			<?php
+			}
 		}
 		?>
 		<tr>
