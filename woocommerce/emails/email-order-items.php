@@ -110,9 +110,15 @@ foreach ( $items as $item_id => $item ) :
 				<tr class="qr-container">
 					<td style="text-align:center">
 						<button type="button" class="ot-button ot-dtp-picker-button en">
-							<a class="booking-link" href="<?php echo $booking_url ?>" target="_blank">
-								Book Now
-							</a>
+							<table>
+								<tr>
+									<td>
+									<a class="booking-link" href="<?php echo $booking_url ?>" target="_blank">
+										Book Now
+									</a>
+									</td>
+								</tr>
+							</table>
 						</button>
 						<div title="Powered By OpenTable" class="ot-powered-by"></div>
 					</td>

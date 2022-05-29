@@ -73,14 +73,26 @@ if ($booking_flg) {
 		}
 
 		a.booking-link {
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
+			display: block;
+			font-size: 16px;
+			text-align: center;
 			text-decoration: none;
 			color: #ffffff;
 			font-weight: bold;
 			width: 100%;
 			height: 100%;
+			padding-top: 18px;
+		}
+		.qr-container table {
+			width: 100%;
+			height: 100%;
+		}
+
+		.qr-container table tr td {
+			vertical-align: middle;
+			text-align: center;
+			height: 100%;
+			padding: 0 !important;
 		}
 
 		.ot-button {
