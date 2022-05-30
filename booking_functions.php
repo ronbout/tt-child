@@ -71,7 +71,8 @@ function retrieve_order_booking($order_item_id) {
     SELECT plook_o.order_id, plook_o.order_item_id, plook_o.product_id, plook_o.product_qty,
       plook_o.date_created AS order_date,	ord_p.post_status AS order_status, 
       prod_p.post_title as prod_desc, ven.venue_id, ven.name AS venue_name, poix.payment_id, 
-      wcoi.downloaded AS redeemed, prod_pm.meta_value as booking_id
+      wcoi.downloaded AS redeemed, prod_pm_book.meta_value AS booking_id,
+      prod_pm_name.meta_value AS booking_name
     FROM {$wpdb->prefix}wc_order_product_lookup plook_oi
     JOIN {$wpdb->prefix}wc_order_product_lookup plook_o ON plook_o.order_id = plook_oi.order_id
     JOIN {$wpdb->prefix}posts prod_p ON prod_p.ID = plook_o.product_id
@@ -80,8 +81,10 @@ function retrieve_order_booking($order_item_id) {
     JOIN {$wpdb->prefix}posts ord_p ON ord_p.ID = plook_oi.order_id
     LEFT JOIN {$wpdb->prefix}woocommerce_order_items wcoi ON wcoi.order_item_id = plook_o.order_item_id
     LEFT JOIN {$wpdb->prefix}taste_venue_payment_order_item_xref poix ON poix.order_item_id = plook_o.order_item_id
-    LEFT JOIN {$wpdb->prefix}postmeta prod_pm ON prod_pm.post_id = plook_o.product_id
-      AND prod_pm.meta_key = 'booking'
+    LEFT JOIN {$wpdb->prefix}postmeta prod_pm_book ON prod_pm_book.post_id = plook_o.product_id
+      AND prod_pm_book.meta_key = 'booking'
+      LEFT JOIN {$wpdb->prefix}postmeta prod_pm_name ON prod_pm_name.post_id = plook_o.product_id
+        AND prod_pm_name.meta_key = 'booking_name'
     WHERE plook_oi.order_item_id = %d
   ";
 

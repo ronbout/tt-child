@@ -67,6 +67,8 @@ if (!$order_item_rows) {
   $order_item_info = $order_item_rows[$order_item_id];
   $booking_id = $order_item_info['booking_id'];
   $venue_name = $order_item_info['venue_name'];
+  $booking_name = $order_item_info['booking_name'];
+  $rest_name = $booking_name ? $booking_name : $venue_name;
 }
 
 // wp_safe_redirect( 'my-taste-account' );
@@ -106,7 +108,7 @@ get_header(); ?>
                   <script>
                     let tasteBooking = {
                       rid: <?php echo $booking_id ?>,
-                      restName: "<?php echo $venue_name ?>",
+                      restName: "<?php echo $rest_name ?>",
                     }
                   </script>
                   <script type='text/javascript' src='<?php echo $ot_full_url ?>'></script>
