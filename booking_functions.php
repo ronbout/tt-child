@@ -64,7 +64,7 @@ function get_order_item_card_booking($order_item_info) {
 }
 
 
-function retrieve_order_booking($order_item_id) {
+function retrieve_order_booking($id, $id_type) {
   global $wpdb;
 
   $sql = "
@@ -85,14 +85,23 @@ function retrieve_order_booking($order_item_id) {
       AND prod_pm_book.meta_key = 'booking'
       LEFT JOIN {$wpdb->prefix}postmeta prod_pm_name ON prod_pm_name.post_id = plook_o.product_id
         AND prod_pm_name.meta_key = 'booking_name'
-    WHERE plook_oi.order_item_id = %d
+    WHERE plook_oi.$id_type = %d
   ";
 
-  $orig_item_rows = $wpdb->get_results($wpdb->prepare($sql, $order_item_id), ARRAY_A); 
+  $orig_item_rows = $wpdb->get_results($wpdb->prepare($sql, $id), ARRAY_A); 
   if (!$orig_item_rows) {
     return false;
   }
   $order_item_rows = array_column($orig_item_rows, null, 'order_item_id');
+
+  /**
+   * if id type = order item id, make sure that item is listed first 
+   */
+  if ('order_item_id' == $id_type) {
+    $tmp_row = array($id => $order_item_rows[$id]);
+    unset($order_item_rows[$id]);
+    $order_item_rows = $tmp_row + $order_item_rows;
+  }
 
   return $order_item_rows;
 }

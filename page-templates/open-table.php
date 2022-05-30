@@ -13,7 +13,11 @@
 defined('ABSPATH') or die('Direct script access disallowed.');
 
 $order_item_id = isset($_GET['order-item-id']) ? $_GET['order-item-id'] : null;
+$order_id = isset($_GET['order-id']) ? $_GET['order-id'] : null;
 
+// if (!$order_item_id && !$order_id) {
+//   die("Invalid URL");
+// }
 if (!$order_item_id) {
   die("Invalid URL");
 }
@@ -60,15 +64,10 @@ if ( !is_user_logged_in()) {
 */
 
 // $order_item_id = 169746;
-$order_item_rows = retrieve_order_booking($order_item_id);
-if (!$order_item_rows) {
-  $order_item_info = false;
+if ($order_item_id) {
+  $order_item_rows = retrieve_order_booking($order_item_id, "order_item_id");
 } else {
-  $order_item_info = $order_item_rows[$order_item_id];
-  $booking_id = $order_item_info['booking_id'];
-  $venue_name = $order_item_info['venue_name'];
-  $booking_name = $order_item_info['booking_name'];
-  $rest_name = $booking_name ? $booking_name : $venue_name;
+  $order_item_rows = retrieve_order_booking($order_id, "order_id");
 }
 
 // wp_safe_redirect( 'my-taste-account' );
@@ -86,45 +85,27 @@ get_header(); ?>
 
 		<?php astra_primary_content_top(); ?>
 
-    <article class="ast-article-single order-booking-article">
-      <?php
-        if (!$order_item_info) {
+      <?php 
+        if (!$order_item_rows) {
+          $invalid_msg = $order_item_id ? "Invalid Order Item" : "Invalid Order";
           ?>
           <h2>
-            Invalid Order Item
+            <?php echo $invalid_msg ?>
           </h2>
           <?php
-          
         } else {
-          ?>
-          <div id="booking-order-item-card-container">
-            <?php echo get_order_item_card_booking($order_item_info) ?>
-          </div>
-          <div id="booking-order-item-widget-container">
-            <?php 
-              if ($booking_id) {
-                $ot_full_url = OT_URL_BASE . '?' . "rid=$booking_id" . OT_URL_QUERY;
-                ?>
-                  <script>
-                    let tasteBooking = {
-                      rid: <?php echo $booking_id ?>,
-                      restName: "<?php echo $rest_name ?>",
-                    }
-                  </script>
-                  <script type='text/javascript' src='<?php echo $ot_full_url ?>'></script>
-                <?php
-              } else {
-                ?>
-                  <h3>This order item is not Bookable.</h3>
-                <?php
-              }
-            ?>
-          </div>
-        <?php
+          foreach($order_item_rows as $cur_order_item_id => $order_item_info) {
+            if ($cur_order_item_id == $order_item_id) {
+              $booking_id = $order_item_info['booking_id'];
+              $venue_name = $order_item_info['venue_name'];
+              $booking_name = $order_item_info['booking_name'];
+              $rest_name = $booking_name ? $booking_name : $venue_name;
+              display_order_booking_article($order_item_info, $booking_id, $rest_name);
+            }
+          }
         }
-      ?>
 
-    </article>
+      ?>
 
 		<?php astra_primary_content_bottom(); ?>
 
@@ -137,3 +118,37 @@ get_header(); ?>
 <?php endif ?>
 
 <?php get_footer(); ?>
+
+<?php
+
+function display_order_booking_article($order_item_info, $booking_id, $rest_name) {
+  ?>
+    <article class="ast-article-single order-booking-article">
+      <div id="booking-order-item-card-container">
+        <?php echo get_order_item_card_booking($order_item_info) ?>
+      </div>
+      <div id="booking-order-item-widget-container">
+        <?php 
+          if ($booking_id) {
+            $ot_full_url = OT_URL_BASE . '?' . "rid=$booking_id" . OT_URL_QUERY;
+            ?>
+              <script>
+                let tasteBooking = {
+                  rid: <?php echo $booking_id ?>,
+                  restName: "<?php echo $rest_name ?>",
+                }
+              </script>
+              <script type='text/javascript' src='<?php echo $ot_full_url ?>'></script>
+            <?php
+          } else {
+            ?>
+              <h3>This order item is not Bookable.</h3>
+            <?php
+          }
+        ?>
+      </div>
+    </article>
+  <?php
+}
+
+?>
