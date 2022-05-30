@@ -22,6 +22,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! apply_filters( 'woocommerce_order_item_visible', true, $item ) ) {
 	return;
 }
+$booking_flag = taste_if_item_is_bookable($item_id) ? true : false;
+
 ?>
 <tr class="<?php echo esc_attr( apply_filters( 'woocommerce_order_item_class', 'woocommerce-table__line-item order_item', $item, $order ) ); ?>">
 
@@ -48,7 +50,11 @@ if ( ! apply_filters( 'woocommerce_order_item_visible', true, $item ) ) {
 		wc_display_item_meta( $item ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		do_action( 'woocommerce_order_item_meta_end', $item_id, $item, $order, false );
+		
 		?>
+	</td>
+	<td>
+		<?php $booking_flag && taste_display_booking_btn($item_id) ?>
 	</td>
 
 	<td class="woocommerce-table__product-total product-total">

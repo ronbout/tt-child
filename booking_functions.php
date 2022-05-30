@@ -105,3 +105,18 @@ function retrieve_order_booking($id, $id_type) {
 
   return $order_item_rows;
 }
+
+function taste_if_item_is_bookable($order_item_id) {
+  // $order_item_id = 169746;
+  $order_item_rows = retrieve_order_booking($order_item_id,'order_item_id');
+  if (!$order_item_rows) {
+    return false;
+  } 
+  return $order_item_rows[$order_item_id]['booking_id'];
+}
+
+function taste_display_booking_btn($order_item_id) {
+	$booking_url = get_site_url(null, "/open-table-booking?order-item-id={$order_item_id}");
+	echo '<a href="' . esc_url( $booking_url ) . '" class="woocommerce-button button orders-booking-btn" 
+              target="_blank">BOOK</a>';
+}

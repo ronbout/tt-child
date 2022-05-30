@@ -16,8 +16,8 @@
  */
 
 defined( 'ABSPATH' ) || exit;
-?>
 
+?>
 <div class="woocommerce-order">
 
 	<?php
