@@ -16,6 +16,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 define('OT_URL_BASE', '//www.opentable.com/widget/reservation/loader');
 define('OT_URL_QUERY', '&type=multi&theme=standard&color=1&domain=com&lang=en-US&newtab=false&ot_source=Other&iframe=false');
 
+//* Enqueue booking page Script
+add_action('wp_enqueue_scripts', 'booking_load_resources');
+function booking_load_resources() {
+		wp_enqueue_script( 'booking-js', get_stylesheet_directory_uri() . '/js/open-table.js', array( 'jquery' ), false, true);
+}
+
 
 function get_order_item_card_booking($order_item_info) {
   $product_id = $order_item_info['product_id'];

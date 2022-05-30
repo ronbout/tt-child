@@ -66,6 +66,7 @@ if (!$order_item_rows) {
 } else {
   $order_item_info = $order_item_rows[$order_item_id];
   $booking_id = $order_item_info['booking_id'];
+  $venue_name = $order_item_info['venue_name'];
 }
 
 // wp_safe_redirect( 'my-taste-account' );
@@ -102,6 +103,12 @@ get_header(); ?>
               if ($booking_id) {
                 $ot_full_url = OT_URL_BASE . '?' . "rid=$booking_id" . OT_URL_QUERY;
                 ?>
+                  <script>
+                    let tasteBooking = {
+                      rid: <?php echo $booking_id ?>,
+                      restName: "<?php echo $venue_name ?>",
+                    }
+                  </script>
                   <script type='text/javascript' src='<?php echo $ot_full_url ?>'></script>
                 <?php
               } else {
