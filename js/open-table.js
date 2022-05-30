@@ -7,24 +7,30 @@
  */
 
 jQuery(document).ready(function ($) {
-  const rid = tasteBooking.rid;
-  const restName = tasteBooking.restName;
+  if (typeof tasteBooking !== "undefined") {
+    const rid = tasteBooking.rid;
+    const restName = tasteBooking.restName;
 
-  var otLoad = setInterval(function () {
-    if ($(".ot-dtp-picker-form .ot-time-picker select").length > 0) {
-      clearInterval(otLoad);
-      // const $timeSelect = $(".ot-dtp-picker-form .ot-time-picker select");
-      const $restSelect = $(".ot-dtp-picker-form .ot-restaurant-picker select");
-      const $restSelectLabel = $(".ot-dtp-picker-form .ot-restaurant-picker a");
+    var otLoad = setInterval(function () {
+      if ($(".ot-dtp-picker-form .ot-time-picker select").length > 0) {
+        clearInterval(otLoad);
+        // const $timeSelect = $(".ot-dtp-picker-form .ot-time-picker select");
+        const $restSelect = $(
+          ".ot-dtp-picker-form .ot-restaurant-picker select"
+        );
+        const $restSelectLabel = $(
+          ".ot-dtp-picker-form .ot-restaurant-picker a"
+        );
 
-      $restSelect.html(
-        `<option value="${rid}" selected="selected">${restName}</option>`
-      );
-      $restSelectLabel.html(restName);
+        $restSelect.html(
+          `<option value="${rid}" selected="selected">${restName}</option>`
+        );
+        $restSelectLabel.html(restName);
 
-      updateOtURL(rid, $);
-    }
-  }, 100);
+        updateOtURL(rid, $);
+      }
+    }, 100);
+  }
 });
 
 function updateOtURL(rid, $) {
