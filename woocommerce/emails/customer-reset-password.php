@@ -30,8 +30,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php /* translators: %s: Customer username */ ?>
 <p><?php printf( esc_html__( 'Username: %s', 'woocommerce' ), esc_html( $user_login ) ); ?></p>
 <p><?php esc_html_e( 'If you didn\'t make this request, just ignore this email. If you\'d like to proceed:', 'woocommerce' ); ?></p>
+
+<?php
+	$reset_link = get_reset_link($user_id, $reset_key);
+?>
 <p>
-	<a class="link" href="<?php echo esc_url( add_query_arg( array( 'key' => $reset_key, 'id' => $user_id ), wc_get_endpoint_url( 'lost-password', '', wc_get_page_permalink( 'myaccount' ) ) ) ); ?>"><?php // phpcs:ignore ?>
+	<a class="link" href="<?php echo $reset_link ?>">
 		<?php esc_html_e( 'Click here to reset your password', 'woocommerce' ); ?>
 	</a>
 </p>
@@ -45,3 +49,22 @@ if ( $additional_content ) {
 }
 
 do_action( 'woocommerce_email_footer', $email );
+
+function get_reset_link($user_id, $reset_key) {
+	global $wpdb;
+
+	$sql = "
+		SELECT COUNT(*)
+		FROM {$wpdb->prefix}taste_venue
+		WHERE venue_id = %d
+	";
+
+	$sql = $wpdb->prepare($sql, $user_id);
+	$venue_flag = $wpdb->get_var($sql);
+
+	if ($venue_flag) {
+		return esc_url( add_query_arg( array('key' => $reset_key, 'id' => $user_id), get_site_url(null, '/venue-lost-password')) );
+	} else {
+		return esc_url( add_query_arg( array( 'key' => $reset_key, 'id' => $user_id ), wc_get_endpoint_url( 'lost-password', '', wc_get_page_permalink( 'myaccount' ) ) ) ); 
+	}
+}
