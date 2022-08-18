@@ -269,3 +269,14 @@ function custom_pre_get_posts_query( $q ) {
     $q->set( 'tax_query', $tax_query );
 }
 add_action( 'woocommerce_product_query', 'custom_pre_get_posts_query' );
+
+/**
+ * change the "Preview" Resume submit button to "Sign Up and Preview" IF not user is logged in
+ */
+
+ add_filter('submit_resume_form_submit_button_text', function($btn_txt) {
+    if (!is_user_logged_in(  )) {
+        return "Sign Up and Preview  &rarr;";
+    }
+    return $btn_txt;
+ });
