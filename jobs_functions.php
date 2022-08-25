@@ -163,28 +163,47 @@ function filter_by_salary_field_query_args( $query_args, $args ) {
 }
 
 // Custom Links WooMyAccount
-add_filter ( 'woocommerce_account_menu_items', 'matrix_more_links' );
-function matrix_more_links( $menu_links ){
-    $user_info = wp_get_current_user();
-	$role = $user_info->roles[0];
+add_filter ( 'woocommerce_account_menu_items', 'tastejobs_more_links' );
+function tastejobs_more_links( $menu_links ){
+  $user_info = wp_get_current_user();
 
-	if ('VENUE' !== strtoupper($role) && 'ADMINISTRATOR' !== strtoupper($role)) {    
-        $logout_index = array_search("subscriptions",array_keys($menu_links));
-        array_splice($menu_links, $logout_index, 1);
+	$role = strtoupper($user_info->roles[0]);
+
+  $job_roles = array('VENUE', 'ADMINISTRATOR', 'CANDIDATE');
+
+	if (!in_array($role, $job_roles)) {
+		$logout_index = array_search("subscriptions",array_keys($menu_links));
+		array_splice($menu_links, $logout_index, 1);
 		return $menu_links;
 	}
 
-	$new = array( 
-        'submit-jobs' => 'Add New Job', 
-        'job-dashboard' => 'My Jobs',
-        'venue-portal' => 'Portal / Campaign Manager'
-    );
-    $logout_index = array_search("customer-logout",array_keys($menu_links));
+	$user_caps = $user_info->allcaps;
+	$employer_flag = in_array('browse_resumes', array_keys($user_caps));
+	$cm_flag = in_array($role, array('VENUE', 'ADMINISTRATOR'));
+
+	$new = array();
+	if ($employer_flag) {
+		$new = $new + array( 
+			'submit-jobs' => 'Add New Job', 
+			'job-dashboard' => 'My Jobs',
+			'browse-resumes' => 'Browse Resumes',
+		);
+	}
+	if ('CANDIDATE' == $role) {
+		$new = $new + array( 
+			'candidate-dashboard' => 'Candidate Dashboard',
+			'Submit Resume' => 'Add New Resume'
+		);
+	}
+	if ($cm_flag) {
+		$new = $new + array('venue-portal' => 'Portal / Campaign Manager');
+	}
+	$logout_index = array_search("customer-logout",array_keys($menu_links));
 	$menu_links = array_slice( $menu_links, 0, $logout_index, true ) 
 	+ $new 
 	+ array_slice( $menu_links, $logout_index, NULL, true );
 
-    return $menu_links;
+	return $menu_links;
 }
 
 //Remove Preview Step
