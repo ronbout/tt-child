@@ -280,3 +280,21 @@ add_action( 'woocommerce_product_query', 'custom_pre_get_posts_query' );
     }
     return $btn_txt;
  });
+
+ /**
+  * Add a "browse_resumes" capability to admins and venues
+  * Can be used to test for other employer capabilities
+  */
+
+ function taste_jobs_add_capability() {
+    $role = get_role( 'administrator' );
+    // Add a new capability.
+    $role->add_cap( 'browse_resumes', true );
+
+    $role = get_role( 'venue' );
+    // Add a new capability.
+    $role->add_cap( 'browse_resumes', true );
+}
+ 
+// Add simple_role capabilities, priority must be after the initial role definition.
+add_action( 'init', 'taste_jobs_add_capability', 11 );
