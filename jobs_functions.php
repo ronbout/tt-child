@@ -187,12 +187,14 @@ function tastejobs_more_links( $menu_links ){
 			'submit-jobs' => 'Add New Job', 
 			'job-dashboard' => 'My Jobs',
 			'browse-resumes' => 'Browse Resumes',
+			'jobs-listing' => "Jobs Listing",
 		);
 	}
 	if ('CANDIDATE' == $role) {
 		$new = $new + array( 
 			'candidate-dashboard' => 'Candidate Dashboard',
-			'Submit Resume' => 'Add New Resume'
+			'Submit Resume' => 'Add New Resume',
+			'jobs-listing' => "Jobs Listing",
 		);
 	}
 	if ($cm_flag) {
