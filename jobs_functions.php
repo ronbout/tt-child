@@ -193,7 +193,7 @@ function tastejobs_more_links( $menu_links ){
 	if ('CANDIDATE' == $role) {
 		$new = $new + array( 
 			'candidate-dashboard' => 'Candidate Dashboard',
-			'Submit Resume' => 'Add New Resume',
+			'submit-resume' => 'Add New Resume',
 			'jobs-listing' => "Jobs Listing",
 		);
 	}
