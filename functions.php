@@ -12,6 +12,8 @@
  * Define Constants
  */
 define( 'CHILD_THEME_MANNAPRESS_VERSION', '1.0.0' );
+define( 'MANNA_PRESS_CHILD_THEME_DIR', trailingslashit( get_stylesheet_directory()) );
+define( 'MANNA_PRESS_CHILD_THEME_URL', trailingslashit( get_stylesheet_directory_uri()) );
 
 /**
  * Enqueue styles
@@ -27,4 +29,4 @@ add_action( 'wp_enqueue_scripts', 'child_enqueue_styles', 15 );
 /**
  * Include the functions related to the jobs board
  */
-include get_stylesheet_directory().'/jobs_functions.php';
+include MANNA_PRESS_CHILD_THEME_DIR . 'jobs_functions.php';

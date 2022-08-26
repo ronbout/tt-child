@@ -33,6 +33,9 @@ if ( is_user_logged_in() && sizeof( $resumes ) ) : ?>
 					}
 				?>
 			</select>
+			<span style="margin-left: 48px">
+				<input type="submit" id="taste-jobs-add-resume-to-apply" name="wp_job_manager_resumes_apply_with_resume_create" value="<?php esc_attr_e( 'Add New Resume &amp; Apply', 'wp-job-manager-resumes' ); ?>" formaction="<?php echo get_permalink( get_option( 'resume_manager_submit_resume_form_page_id' ) ); ?>" />
+			</span>
 		</p>
 		<p>
 			<label><?php _e( 'Message', 'wp-job-manager-resumes' ); ?>:</label>
@@ -49,7 +52,7 @@ if ( is_user_logged_in() && sizeof( $resumes ) ) : ?>
 			?></textarea>
 		</p>
 		<p>
-			<input type="submit" name="wp_job_manager_resumes_apply_with_resume" value="<?php esc_attr_e( 'Send Existing Resume', 'wp-job-manager-resumes' ); ?>" />
+			<input type="submit" name="wp_job_manager_resumes_apply_with_resume" value="<?php esc_attr_e( 'Send Selected Resume', 'wp-job-manager-resumes' ); ?>" />
 			<input type="hidden" name="job_id" value="<?php echo absint( $post->ID ); ?>" />
 		</p>
 	</form>

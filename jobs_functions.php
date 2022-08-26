@@ -295,27 +295,37 @@ add_action( 'woocommerce_product_query', 'custom_pre_get_posts_query' );
  * change the "Preview" Resume submit button to "Sign Up and Preview" IF not user is logged in
  */
 
- add_filter('submit_resume_form_submit_button_text', function($btn_txt) {
-    if (!is_user_logged_in(  )) {
-        return "Sign Up and Preview  &rarr;";
-    }
-    return $btn_txt;
- });
+add_filter('submit_resume_form_submit_button_text', function($btn_txt) {
+	if (!is_user_logged_in(  )) {
+			return "Sign Up and Preview  &rarr;";
+	}
+	return $btn_txt;
+});
 
  /**
   * Add a "browse_resumes" capability to admins and venues
   * Can be used to test for other employer capabilities
   */
 
- function taste_jobs_add_capability() {
-    $role = get_role( 'administrator' );
-    // Add a new capability.
-    $role->add_cap( 'browse_resumes', true );
+function taste_jobs_add_capability() {
+	$role = get_role( 'administrator' );
+	// Add a new capability.
+	$role->add_cap( 'browse_resumes', true );
 
-    $role = get_role( 'venue' );
-    // Add a new capability.
-    $role->add_cap( 'browse_resumes', true );
+	$role = get_role( 'venue' );
+	// Add a new capability.
+	$role->add_cap( 'browse_resumes', true );
 }
  
 // Add simple_role capabilities, priority must be after the initial role definition.
 add_action( 'init', 'taste_jobs_add_capability', 11 );
+
+/**
+ * enqueue jobs js
+ */
+function taste_jobs_enqueue() {
+	
+	wp_enqueue_script( 'taste-jobs-js', MANNA_PRESS_CHILD_THEME_URL. 'js/jobs.js', array( 'jquery' ), 1.0, true );
+}
+
+add_action( 'wp_enqueue_scripts', 'taste_jobs_enqueue' );
