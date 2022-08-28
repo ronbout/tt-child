@@ -13,7 +13,7 @@ Template: astra
 .themeform .form-control {
   width: 100%;
 }
-/*
+
 #job-listing-ucdsu-logo {
   text-align: left;
   padding-left: 20px;
@@ -22,4 +22,29 @@ Template: astra
 #job-listing-ucdsu-logo img {
   width: 140px;
 }
-*/
+
+.app-dashboard-header-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-dashboard-header-1 {
+  display: flex;
+}
+
+.app-dashboard-header-name-meta {
+  flex: 1;
+}
+
+.app-dashboard-header-resume-title {
+  display: flex;
+  line-height: 20px;
+  color: #999;
+}
+
+.app-dashboard-header-name-rating {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+  line-height: 28px;
+}
