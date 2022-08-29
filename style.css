@@ -16,7 +16,10 @@ Template: astra
 
 #job-listing-ucdsu-logo {
   text-align: left;
-  padding-left: 20px;
+  padding: 0 20px;
+  font-size: 1.4em;
+  font-weight: 600;
+  color: red;
 }
 
 #job-listing-ucdsu-logo img {
