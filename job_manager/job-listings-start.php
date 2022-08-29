@@ -15,8 +15,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 ?>
-<div id="job-listing-ucdsu-logo">
-	<span>Supported By </span>
-	<img src="https://www.thetaste.ie/wp-content/uploads/2022/08/UCDSU_Logo.png" title="" alt="">
-</div>
 <ul class="job_listings">
