@@ -47,6 +47,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<header>
 						<?php job_application_header( $application ); ?>
 					</header>
+
+					<?php do_action( 'job_application_content_start' ); ?>
+
 					<section class="job-application-content">
 						<?php job_application_meta( $application ); ?>
 						<?php job_application_content( $application ); ?>
@@ -57,6 +60,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<section class="job-application-notes">
 						<?php job_application_notes( $application ); ?>
 					</section>
+
+					<?php do_action( 'job_application_content_end' ); ?>
+
 					<footer>
 						<?php job_application_footer( $application ); ?>
 					</footer>

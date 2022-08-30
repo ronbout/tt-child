@@ -6,9 +6,12 @@
  *
  * @see         https://wpjobmanager.com/document/template-overrides/
  * @author      Automattic
- * @package     WP Job Manager - Resume Manager
+ * @package     wp-job-manager-resumes
  * @category    Template
- * @version     1.15.0
+ * @version     1.18.0
+ *
+ * @var int     $job_id When initiating resume submission, this is the job that the user intends to apply for.
+ * @var WP_Post $resume Resume post object that was just submitted.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -16,17 +19,46 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 switch ( $resume->post_status ) :
-	case 'publish' :
+	case 'publish':
 		if ( resume_manager_user_can_view_resume( $resume->ID ) ) {
-			printf( '<p class="resume-submitted">' . __( 'Your resume has been submitted successfully. To view your resume <a href="%s"><strong>CLICK HERE</strong></a>.', 'wp-job-manager-resumes' ) . '</p>', get_permalink( $resume->ID ) );
+			echo '<p class="resume-submitted">';
+			echo wp_kses_post(
+				sprintf(
+					// translators: Placeholder is URL to view the resume.
+					__( 'Your resume has been submitted successfully. To view your resume <a href="%s"><strong>Click Here</strong></a>.', 'wp-job-manager-resumes' ),
+					esc_url( get_permalink( $resume->ID ) )
+				)
+			);
+			echo '</p>';
 		} else {
-			print( '<p class="resume-submitted">' . __( 'Your resume has been submitted successfully.', 'wp-job-manager-resumes' ) . '</p>' );
+			echo '<p class="resume-submitted">';
+			echo esc_html( __( 'Your resume has been submitted successfully.', 'wp-job-manager-resumes' ) );
+			echo '</p>';
 		}
-	break;
-	case 'pending' :
-		print( '<p class="resume-submitted">' . __( 'Your resume has been submitted successfully and is pending approval.', 'wp-job-manager-resumes' ) . '</p>' );
-	break;
-	default :
-		do_action( 'resume_manager_resume_submitted_content_' . str_replace( '-', '_', sanitize_title( $resume->post_status ) ), $resume );
-	break;
+		break;
+	case 'pending':
+		echo '<p class="resume-submitted">';
+		echo esc_html( __( 'Your resume has been submitted successfully and is pending approval.', 'wp-job-manager-resumes' ) );
+		if (
+			$job_id
+			&& 'publish' === get_post_status( $job_id )
+			&& 'job_listing' === get_post_type( $job_id )
+		) {
+			$job_title     = wpjm_get_the_job_title( $job_id );
+			$job_permalink = get_the_job_permalink( $job_id );
+			echo wp_kses_post(
+				sprintf(
+					// translators: %1$s is the url to the job listing; %2$s is the title of the job listing.
+					__( ' You will be able to apply for <a href="%1$s">%2$s</a> once your resume has been approved.', 'wp-job-manager-resumes' ),
+					$job_permalink,
+					$job_title
+				)
+			);
+		}
+		echo '</p>';
+		break;
+	default:
+		$hook_friendly_post_status = str_replace( '-', '_', sanitize_title( $resume->post_status ) );
+		do_action( 'resume_manager_resume_submitted_content_' . $hook_friendly_post_status, $resume );
+		break;
 endswitch;
