@@ -167,7 +167,7 @@ add_filter ( 'woocommerce_account_menu_items', 'tastejobs_more_links' );
 function tastejobs_more_links( $menu_links ){
   $user_info = wp_get_current_user();
 
-	$role = strtoupper($user_info->roles[0]);
+  $role = strtoupper($user_info->roles[0]);
 
   $job_roles = array('VENUE', 'ADMINISTRATOR', 'CANDIDATE');
 
@@ -329,3 +329,33 @@ function taste_jobs_enqueue() {
 }
 
 add_action( 'wp_enqueue_scripts', 'taste_jobs_enqueue' );
+
+/**
+ * check if a job package has 'membership_required' flag set to 1
+ */
+ function is_job_package_members_only($package_id) {
+    return get_post_meta($package_id,"membership_required",true );
+ }
+/**
+ * check if a venue (Employer) is a paid member
+ */
+ function is_venue_paid_member($venue_id) {
+    global $wpdb;
+
+    $sql = "
+        SELECT ven.paid_member 
+        FROM {$wpdb->prefix}taste_venue ven
+        WHERE ven.venue_id = %d
+    ";
+
+    $sql = $wpdb->prepare($sql, $venue_id);
+    return $wpdb->get_var($sql);
+ }
+
+// /**
+//  * for dev, with no email going out, set $sent to true, even though it was not sent
+//  */
+
+// add_filter('resume_manager_apply_with_resume_email_sent', function($sent) {
+// 	return true;
+// });

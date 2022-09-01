@@ -17,6 +17,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( $packages || $user_packages ) :
+	$user_info = wp_get_current_user();
+	$venue_id = $user_info->ID;
+  $role = strtoupper($user_info->roles[0]);
+
+	$paid_member = 'ADMINISTRATOR' == $role || is_venue_paid_member($venue_id);
 	$checked = 1;
 	?>
 	<ul class="job_packages">
@@ -56,16 +61,30 @@ if ( $packages || $user_packages ) :
 				if ( ! $product->is_type( array( 'job_package', 'job_package_subscription' ) ) || ! $product->is_purchasable() ) {
 					continue;
 				}
+				// if ('356811' == $package->ID) {
+				// 	var_dump($package);
+				// 	var_dump($product);
+				// 	die;
+				// }
 				/* @var $product WC_Product_Job_Package|WC_Product_Job_Package_Subscription */
 				if ( $product->is_type( 'variation' ) ) {
 					$post = get_post( $product->get_parent_id() );
 				} else {
 					$post = get_post( $product->get_id() );
 				}
+				$member_package = is_job_package_members_only($package->ID);
+				$members_only = $member_package && ! $paid_member;
+				$package_class =  $product->is_job_listing_featured() ? ' job-package-featured ' : '';
+				if ($members_only) {
+					$package_class .=  ' members-only ';
+					$checked_display = '';
+				} else {
+					$checked_display = checked($checked, 1, false);
+					$checked = 0;
+				}
 				?>
-				<li class="job-package <?php echo $product->is_job_listing_featured() ? 'job-package-featured' : '' ?>">
-					<input type="radio" <?php checked( $checked, 1 );
-					$checked = 0; ?> name="job_package" value="<?php echo $product->get_id(); ?>" id="package-<?php echo $product->get_id(); ?>" />
+				<li class="job-package <?php echo $package_class ?>">
+					<input type="radio" <?php echo $checked_display ?> name="job_package" value="<?php echo $product->get_id(); ?>" id="package-<?php echo $product->get_id(); ?>" />
 					<label for="package-<?php echo $product->get_id(); ?>"><?php echo $product->get_title(); ?></label><br/>
 					<?php if ( ! empty( $post->post_excerpt ) ) : ?>
 						<?php echo apply_filters( 'woocommerce_short_description', $post->post_excerpt ) ?>
