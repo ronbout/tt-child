@@ -52,3 +52,7 @@ Template: astra
   flex: 1;
   line-height: 28px;
 }
+
+body.single-resume nav.post-navigation {
+  display: none;
+}
