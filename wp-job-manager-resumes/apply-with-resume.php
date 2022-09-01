@@ -69,7 +69,8 @@ if ( is_user_logged_in() && sizeof( $resumes ) ) : ?>
 		} else {
 			?>
 				<p>
-					<input type="submit" name="wp_job_manager_resumes_apply_with_resume_create" value="<?php esc_attr_e( 'Sign Up to Apply', 'wp-job-manager-resumes' ); ?>" />
+					<a class="elementor-button" href="<?php echo get_site_url(null, '/candidate-sign-up') ?>"><?php _e( 'Register', 'wp-job-manager-resumes' ); ?>
+					</a>
 					<span style="margin: 0 8px;">or</span>
 					<a class="elementor-button" href="<?php echo apply_filters( 'resume_manager_candidate_dashboard_login_url', wp_login_url( get_permalink() ) ); ?>"><?php _e( 'Sign in', 'wp-job-manager-resumes' ); ?>
 					</a>
