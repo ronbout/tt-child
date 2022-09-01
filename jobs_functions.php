@@ -38,61 +38,61 @@ function register_jo_manager_tax() {
 // add_action('init', 'register_jo_manager_tax');
 
 
-// Custom fields
-add_filter( 'submit_job_form_fields', 'frontend_add_salary_field' );
-function frontend_add_salary_field( $fields ) {
-	$fields['job']['job_salary'] = array(
-		'label'       => __( 'Salary (€) *', 'job_manager' ),
-		'type'        => 'text',
-		'required'    => true,
-		'placeholder' => 'e.g. 20000',
-		'priority'    => 7
-	);
-	return $fields;
+// // Custom fields
+// add_filter( 'submit_job_form_fields', 'frontend_add_salary_field' );
+// function frontend_add_salary_field( $fields ) {
+// 	$fields['job']['job_salary'] = array(
+// 		'label'       => __( 'Salary (€) *', 'job_manager' ),
+// 		'type'        => 'text',
+// 		'required'    => true,
+// 		'placeholder' => 'e.g. 20000',
+// 		'priority'    => 7
+// 	);
+// 	return $fields;
 
-}
+// }
 
 
-add_filter( 'job_manager_job_listing_data_fields', 'admin_add_salary_field' );
-function admin_add_salary_field( $fields ) {
-	$fields['_job_salary'] = array(
-		'label'       => __( 'Salary (€) *', 'job_manager' ),
-		'type'        => 'text',
-		'placeholder' => 'e.g. 20000',
-		'description' => '',
-        'show_in_rest' => true,
-	);
-	return $fields;
-}
+// add_filter( 'job_manager_job_listing_data_fields', 'admin_add_salary_field' );
+// function admin_add_salary_field( $fields ) {
+// 	$fields['_job_salary'] = array(
+// 		'label'       => __( 'Salary (€) *', 'job_manager' ),
+// 		'type'        => 'text',
+// 		'placeholder' => 'e.g. 20000',
+// 		'description' => '',
+//         'show_in_rest' => true,
+// 	);
+// 	return $fields;
+// }
 
-add_action( 'single_job_listing_meta_end', 'display_job_salary_data' );
-function display_job_salary_data() {
-    global $post;
+// add_action( 'single_job_listing_meta_end', 'display_job_salary_data' );
+// function display_job_salary_data() {
+//     global $post;
 
-    $salary = get_post_meta( $post->ID, '_job_salary', true );
+//     $salary = get_post_meta( $post->ID, '_job_salary', true );
 
-    if ( $salary ) {
-        echo '<li>' . __( 'Salary:' ) . ' €' . esc_html( $salary ) . '</li>';
-    }
-}
+//     if ( $salary ) {
+//         echo '<li>' . __( 'Salary:' ) . ' €' . esc_html( $salary ) . '</li>';
+//     }
+// }
 
 // Add Google structured data
 
-add_filter( 'wpjm_get_job_listing_structured_data', 'add_basesalary_data');
+// add_filter( 'wpjm_get_job_listing_structured_data', 'add_basesalary_data');
 
-function add_basesalary_data( $data ) {
-    global $post;
+// function add_basesalary_data( $data ) {
+//     global $post;
 
-    $data['baseSalary'] = [];
-    $data['baseSalary']['@type'] = 'MonetaryAmount';
-    $data['baseSalary']['currency'] = 'EUR';
-    $data['baseSalary']['value'] = [];
-    $data['baseSalary']['value']['@type'] = 'QuantitativeValue';
-    $data['baseSalary']['value']['value'] = get_post_meta( $post->ID, '_job_salary', true );
-    $data['baseSalary']['value']['unitText'] = 'YEAR';
+//     $data['baseSalary'] = [];
+//     $data['baseSalary']['@type'] = 'MonetaryAmount';
+//     $data['baseSalary']['currency'] = 'EUR';
+//     $data['baseSalary']['value'] = [];
+//     $data['baseSalary']['value']['@type'] = 'QuantitativeValue';
+//     $data['baseSalary']['value']['value'] = get_post_meta( $post->ID, '_job_salary', true );
+//     $data['baseSalary']['value']['unitText'] = 'YEAR';
 
-    return $data;
-}
+//     return $data;
+// }
 
 /**
  * This can either be done with a filter (below) or the field can be added directly to the job-filters.php template file!
