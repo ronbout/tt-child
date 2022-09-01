@@ -56,3 +56,6 @@ Template: astra
 body.single-resume nav.post-navigation {
   display: none;
 }
+body.single-job_listing.logged-in form.job-manager-application-form {
+  display: none;
+}
