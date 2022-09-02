@@ -31,6 +31,15 @@ add_action( 'wp_enqueue_scripts', 'child_enqueue_styles', 15 );
  */
 include MANNA_PRESS_CHILD_THEME_DIR . 'jobs_functions.php';
 
+/**
+ * create mechanism for taste account login to redirect to referrer, if present
+ */
+add_action( 'woocommerce_login_form_end', 'taste_theme_actual_referrer' );
+function taste_theme_actual_referrer() {
+   if ( ! wc_get_raw_referer() ) return;
+   echo '<input type="hidden" name="redirect" value="' . wp_validate_redirect( wc_get_raw_referer(), wc_get_page_permalink( 'my-taste-account' ) ) . '" />';
+}
+
 /*
 function taste_ads_add_shortcodes() {
 	add_shortcode("AD-DISPLAY", "display_header_ad");

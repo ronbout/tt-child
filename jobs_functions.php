@@ -270,7 +270,8 @@ function custom_submit_job_form_fields( $fields ) {
 
 add_filter( 'submit_job_form_login_url', 'wpjms_redirect_login_url' );
 function wpjms_redirect_login_url() {
-	return '/my-taste-account/';
+	// return '/my-taste-account/';
+    return get_site_url(null, '/my-taste-account');
 }
 
 add_filter( 'submit_job_form_logout_url', function() {
