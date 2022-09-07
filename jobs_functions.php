@@ -326,7 +326,7 @@ add_action( 'init', 'taste_jobs_add_capability', 11 );
  */
 function taste_jobs_enqueue() {
 	
-	wp_enqueue_script( 'taste-jobs-js', MANNA_PRESS_CHILD_THEME_URL. 'js/jobs.js', array( 'jquery' ), 1.0, true );
+	wp_enqueue_script( 'taste-jobs-js', MANNA_PRESS_CHILD_THEME_URL. 'js/jobs.js', array( 'jquery' ), CHILD_THEME_MANNAPRESS_VERSION, true );
 }
 
 add_action( 'wp_enqueue_scripts', 'taste_jobs_enqueue' );

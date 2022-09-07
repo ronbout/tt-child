@@ -11,7 +11,7 @@
 /**
  * Define Constants
  */
-define( 'CHILD_THEME_MANNAPRESS_VERSION', '1.0.0' );
+define( 'CHILD_THEME_MANNAPRESS_VERSION', '1.1.0' );
 define( 'MANNA_PRESS_CHILD_THEME_DIR', trailingslashit( get_stylesheet_directory()) );
 define( 'MANNA_PRESS_CHILD_THEME_URL', trailingslashit( get_stylesheet_directory_uri()) );
 
