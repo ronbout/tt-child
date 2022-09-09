@@ -16,7 +16,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 </ul>
-<div id="job-listing-ucdsu-logo">
+<div id="job-listing-school-logos">
 	<span>Supported By </span>
-	<img src="https://www.thetaste.ie/wp-content/uploads/2022/08/UCDSU_Logo.png" title="" alt="">
+	<img id="job-listing-ucdsu-logo" src="https://www.thetaste.ie/wp-content/uploads/2022/08/UCDSU_Logo.png" title="UCDSU Logo" alt="UCDSU Logo">
+	<img id="job-listing-ncisu-logo" src="https://www.thetaste.ie/wp-content/uploads/2022/09/NCI-SU-yellow-blue-11-10-1.png" title="NCI SU Logo" alt="NCI SU Logo">
 </div>

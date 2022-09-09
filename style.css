@@ -14,7 +14,7 @@ Template: astra
   width: 100%;
 }
 
-#job-listing-ucdsu-logo {
+#job-listing-school-logos {
   text-align: left;
   padding: 10px 0 0 20px;
   font-size: 1.4em;
@@ -23,8 +23,12 @@ Template: astra
   color: red;
 }
 
-#job-listing-ucdsu-logo img {
+#job-listing-ucdsu-logo {
   width: 140px;
+}
+
+#job-listing-ncisu-logo {
+  width: 114px;
 }
 
 .app-dashboard-header-container {
