@@ -340,7 +340,7 @@ add_action( 'wp_enqueue_scripts', 'taste_jobs_enqueue' );
 /**
  * check if a venue (Employer) is a paid member
  */
- function is_venue_paid_member($venue_id) {
+function is_venue_paid_member($venue_id) {
     global $wpdb;
 
     $sql = "
@@ -351,7 +351,7 @@ add_action( 'wp_enqueue_scripts', 'taste_jobs_enqueue' );
 
     $sql = $wpdb->prepare($sql, $venue_id);
     return $wpdb->get_var($sql);
- }
+}
 
  function taste_jobs_terms_privacy_agreement($label) {
     $ret_label = rtrim($label, '.');
@@ -360,6 +360,15 @@ add_action( 'wp_enqueue_scripts', 'taste_jobs_enqueue' );
     return $ret_label;
  }
  add_filter('job_manager_agreement_label', 'taste_jobs_terms_privacy_agreement');
+
+ /**
+  * change the label of "resume
+  */
+function taste_jobs_resume_form_field_labels($fields) {
+    $fields['resume_fields']['resume_file']['label'] = "CV";
+    return $fields;
+}
+add_filter( 'submit_resume_form_fields', 'taste_jobs_resume_form_field_labels' );
 
 // /**
 //  * for dev, with no email going out, set $sent to true, even though it was not sent
