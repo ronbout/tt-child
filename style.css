@@ -71,3 +71,7 @@ body.single-job_listing.logged-in form.job-manager-application-form {
 .taste-register-candidate-container p + h4 {
   display: none;
 }
+
+#submit-resume-form .fieldset-agreement-checkbox a {
+  font-weight: 600;
+}

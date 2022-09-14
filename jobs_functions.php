@@ -353,6 +353,14 @@ add_action( 'wp_enqueue_scripts', 'taste_jobs_enqueue' );
     return $wpdb->get_var($sql);
  }
 
+ function taste_jobs_terms_privacy_agreement($label) {
+    $ret_label = rtrim($label, '.');
+    $ret_label .= " and the <a href='" . get_permalink( get_page_by_path( 'privacy-policy' ) ) . "'
+        target='_blank'>Privacy Policy</a>.";
+    return $ret_label;
+ }
+ add_filter('job_manager_agreement_label', 'taste_jobs_terms_privacy_agreement');
+
 // /**
 //  * for dev, with no email going out, set $sent to true, even though it was not sent
 //  */
