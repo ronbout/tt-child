@@ -68,7 +68,8 @@ body.single-job_listing.logged-in form.job-manager-application-form {
   display: flex;
   flex-direction: column-reverse;
 }
-.taste-register-candidate-container p + h4 {
+.taste-register-candidate-container p + h4,
+.taste-register-candidate-container p + h4 + h4 {
   display: none;
 }
 
