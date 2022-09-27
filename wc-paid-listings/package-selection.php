@@ -61,11 +61,17 @@ if ( $packages || $user_packages ) :
 				if ( ! $product->is_type( array( 'job_package', 'job_package_subscription' ) ) || ! $product->is_purchasable() ) {
 					continue;
 				}
-				// if ('356811' == $package->ID) {
-				// 	var_dump($package);
-				// 	var_dump($product);
-				// 	die;
-				// }
+
+				/**
+				 * While in beta mode, check for beta package based on custom field: beta_venue_ids
+				 */
+				if ($venue_ids = get_post_meta($package->ID,"venue_ids",true )) {
+					$venue_ids_array = explode(",", str_replace(" ", "", $venue_ids));
+					if (!in_array($venue_id, $venue_ids_array) ) {
+						continue;
+					}
+				}
+
 				/* @var $product WC_Product_Job_Package|WC_Product_Job_Package_Subscription */
 				if ( $product->is_type( 'variation' ) ) {
 					$post = get_post( $product->get_parent_id() );

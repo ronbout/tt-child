@@ -259,7 +259,6 @@ function custom_submit_job_form_fields( $fields ) {
     $fields['job']['job_category']['label'] = 'Job category <span class="required">*</span>';
     $fields['job']['job_description']['label'] = 'Description <span class="required">*</span>';
     $fields['job']['job_type']['label'] = 'Choose Job Type <span class="required">*</span>';
-    $fields['job']['job_salary']['label'] = 'Salary (€) <span class="required">*</span>';
     $fields['job']['job_location']['placeholder'] = 'e.g. "Dublin"';
     $fields['job']['application']['placeholder'] = 'Enter an email address or website URL were applications will be sent to';
     $fields['company']['company_logo']['label'] = 'Logo (.jpg, .png or .gif)';
