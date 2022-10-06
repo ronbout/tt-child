@@ -25,6 +25,7 @@ foreach ( $items as $item_id => $item ) :
 	$sku           = '';
 	$purchase_note = '';
 	$image         = '';
+	$use_qr				 = false;
 
 	if ( ! apply_filters( 'woocommerce_order_item_visible', true, $item ) ) {
 		continue;
@@ -34,6 +35,7 @@ foreach ( $items as $item_id => $item ) :
 		$sku           = $product->get_sku();
 		$purchase_note = $product->get_purchase_note();
 		$image         = $product->get_image( $image_size );
+		$use_qr				 = $product->get_meta('use_qr_code');
 	}
 
 	?>
@@ -90,7 +92,7 @@ foreach ( $items as $item_id => $item ) :
 
 	if ( $show_purchase_note && $purchase_note ) {
 
-		if (isset($GLOBALS['completed_email_flag'])) {
+		if (isset($GLOBALS['completed_email_flag']) && $use_qr) {
 			?>
 			<tr class="qr-container">
 				<td><strong>Venues:</strong>  To redeem this item, scan the QR code and follow the directions or visit your Campaign Manager page.</td>
