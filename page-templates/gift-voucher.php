@@ -65,7 +65,7 @@ get_header(); ?>
         <tr>
         <td valign="top" align="center">
         <div><p style="margin-top:0"><img tabindex="0" class="CToWUd a6T"
-        src="http://thetaste.ie/wp/wp-content/uploads/2017/12/thetaste-site-homepage-logo5.png"
+        src="https://www.thetaste.ie/wp-content/uploads/2022/11/The-Taste-Logo-e1667918972785.jpg"
         alt="TheTaste.ie"
         style="border:none;display:inline;font-size:14px;font-weight:bold;min-height:auto;line-height:100%;outline:none;text-decoration:none;text-transform:capitalize">
         <br><br>
